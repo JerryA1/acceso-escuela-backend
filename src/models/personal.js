@@ -2,7 +2,7 @@
 
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('alumno', {
+  return sequelize.define('personal', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -17,17 +17,29 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(50),
       allowNull: false
     },
-    foto: {
+    rfc: {
       type: DataTypes.STRING(50),
       allowNull: false
     },
-    direccionDefault: {
-      type: DataTypes.STRING(255),
+    tel: {
+      type: DataTypes.BIGINT,
       allowNull: false
     },
-    curp: {
-      type: DataTypes.STRING(18),
-      allowNull: false
+    id_tipo_personal: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'tipo_personal',
+        key: 'id'
+      }
+    },
+    id_usuario: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'usuario',
+        key: 'id'
+      }
     },
     activo: {
       type: DataTypes.INTEGER,
@@ -35,7 +47,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'alumno',
+    tableName: 'personal',
     timestamps: false,
     indexes: [
       {
@@ -44,6 +56,20 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "fkIdx_115",
+        using: "BTREE",
+        fields: [
+          { name: "id_usuario" },
+        ]
+      },
+      {
+        name: "fkIdx_84",
+        using: "BTREE",
+        fields: [
+          { name: "id_tipo_personal" },
         ]
       },
     ]

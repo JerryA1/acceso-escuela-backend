@@ -2,40 +2,27 @@
 
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('alumno', {
+  return sequelize.define('direccion_tutor', {
     id: {
-      autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    nombre: {
-      type: DataTypes.STRING(50),
-      allowNull: false
-    },
-    apellido: {
-      type: DataTypes.STRING(50),
-      allowNull: false
-    },
-    foto: {
-      type: DataTypes.STRING(50),
-      allowNull: false
-    },
-    direccionDefault: {
+    direccion: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    curp: {
-      type: DataTypes.STRING(18),
-      allowNull: false
-    },
-    activo: {
+    id_tutor: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'tutor',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
-    tableName: 'alumno',
+    tableName: 'direccion_tutor',
     timestamps: false,
     indexes: [
       {
@@ -44,6 +31,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "fkIdx_129",
+        using: "BTREE",
+        fields: [
+          { name: "id_tutor" },
         ]
       },
     ]
