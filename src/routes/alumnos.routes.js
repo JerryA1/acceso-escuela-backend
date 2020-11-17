@@ -84,7 +84,7 @@ router.delete('/:id', async (req, res) => {
         }
     }, function(err){
         console.log(err);
-        res.json({status: 'error', msj: 'Hubo un problema con tu solicitud'});
+        res.json({status: 'error', msj: 'Hubo un problema con tu solicituddddd'});
     });    
 });
 
