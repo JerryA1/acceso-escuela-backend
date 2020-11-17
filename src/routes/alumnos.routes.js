@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-
 const db = require('../database');
-const UserSchema = require('../models/alumno');
-const ALUMNO = require('../models/alumno');
+const Schema = require('../models/init-models');
+
+const ALUMNO = Schema.default(db).alumno;
 
 router.get('/', async (req, res) => {
     const alumnos = await ALUMNO.findAll({
