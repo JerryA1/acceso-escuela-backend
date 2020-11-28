@@ -34,7 +34,6 @@ app.set('view engine', 'ejs');
 
 /** Middlewares */
 app.use(express.json());
-app.use(express.urlencoded());
 app.use(morgan('dev'));
 // Add headers for cors
 app.use((req, res, next) => {
@@ -51,7 +50,7 @@ app.use((req, res, next) => {
 app.use('/api/alumnos', require('./routes/alumnos.routes'));
 app.use('/api/tipos_usuario', require('./routes/tipos_usuario.routes'));
 app.use('/api/usuarios', require('./routes/usuarios.routes'));
-app.use('/uploads', require('./routes/uploads.routes'))
+app.use('/images', require('./routes/images.routes'))
 // const publicPath = path.join(__dirname, 'public');
 // app.get('*', function(req, res) {
 //     res.sendFile(path.join(publicPath, 'index.html')), function(err) {

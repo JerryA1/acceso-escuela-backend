@@ -16,7 +16,7 @@ router.get('/:id', async (req, res) => {
     const findUsuario = await USUARIO.findOne({ where: { id: req.params.id } });
     if (findUsuario === null) {
         console.log('Not found!');
-        res.json({status: 'error', msj: 'No existe este Usuario'});
+        res.status(400).json({status: 'error', msj: 'No existe este Usuario'});
     } else {
         console.log(findUsuario instanceof USUARIO); // true
         res.json(findUsuario);
@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
         // you can now access the newly ChatMessage task via the variable message
     }).catch(err => {
         console.log(err);
-        res.json({status: 'error', msj: 'Usuario no creado'});
+        res.status(400).json({status: 'error', msj: 'Usuario no creado'});
         // catch error if anything goes wrong
     });    
 });
@@ -47,7 +47,7 @@ router.post('/login', async (req, res) => {
     const findUsuario = await USUARIO.findOne({ where: { email: email, password: password } });
     if (findUsuario === null) {
         console.log('Not found!');
-        res.json({status: 'error', msj: 'Datos Incorrectos'});
+        res.status(401).json({status: 'error', msj: 'Datos Incorrectos'});
     } else {
         console.log(findUsuario instanceof USUARIO); // true
         res.json(findUsuario);
@@ -70,11 +70,11 @@ router.put('/:id', async (req, res) => {
         if (result == 1) {
             res.json({status: 'success', msj: 'Usuario actualizado'});
         } else {
-            res.json({status: 'warning', msj: 'No se realizó ningún cambio'});
+            res.status(400).json({status: 'warning', msj: 'No se realizó ningún cambio'});
         }
     }).catch(e => {
         console.log(e);
-        res.json('Error');
+        res.status(400).json({status: 'Error', msj: 'Ocurrio un error al realizar Peticion'});
     });
 });
 
@@ -88,11 +88,11 @@ router.delete('/:id', async (req, res) => {
             console.log('Deleted successfully');
             res.json({status: 'success', msj: 'Usuario eliminado'});
         } else {
-            res.json({status: 'error', msj: 'El Usuario no existe'});
+            res.status(400).json({status: 'error', msj: 'El Usuario no existe'});
         }
     }, function(err){
         console.log(err);
-        res.json({status: 'error', msj: 'Hubo un problema con tu solicituddddd'});
+        res.status(400).json({status: 'error', msj: 'Hubo un problema con tu solicituddddd'});
     });    
 });
 

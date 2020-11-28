@@ -16,7 +16,7 @@ router.get('/:id', async (req, res) => {
     const findAlumno = await ALUMNO.findOne({ where: { id: req.params.id } });
     if (findAlumno === null) {
         console.log('Not found!');
-        res.json({status: 'error', msj: 'No existe este alumno'});
+        res.status(400).json({status: 'error', msj: 'No existe este alumno'});
     } else {
         console.log(findAlumno instanceof ALUMNO); // true
         res.json(findAlumno);
@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
         // you can now access the newly ChatMessage task via the variable message
     }).catch(err => {
         console.log(err);
-        res.json({status: 'error', msj: 'Alumno no creado'});
+        res.status(400).json({status: 'error', msj: 'Alumno no creado'});
         // catch error if anything goes wrong
     });    
 });
@@ -62,11 +62,11 @@ router.put('/:id', async (req, res) => {
         if (result == 1) {
             res.json({status: 'success', msj: 'Alumno actualizado'});
         } else {
-            res.json({status: 'warning', msj: 'No se realizó ningún cambio'});
+            res.status(400).json({status: 'warning', msj: 'No se realizó ningún cambio'});
         }
     }).catch(e => {
         console.log(e);
-        res.json('Error');
+        res.status(400).json({status: 'error', msj: 'Alumno no Modificado'});
     });
 });
 
@@ -80,11 +80,11 @@ router.delete('/:id', async (req, res) => {
             console.log('Deleted successfully');
             res.json({status: 'success', msj: 'Alumno eliminado'});
         } else {
-            res.json({status: 'error', msj: 'El alumno no existe'});
+            res.status(400).json({status: 'error', msj: 'El alumno no existe'});
         }
     }, function(err){
         console.log(err);
-        res.json({status: 'error', msj: 'Hubo un problema con tu solicituddddd'});
+        res.status(400).json({status: 'error', msj: 'Hubo un problema con tu solicituddddd'});
     });    
 });
 
