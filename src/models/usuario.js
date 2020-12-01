@@ -21,6 +21,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(45),
       allowNull: false
     },
+    token: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
     id_tipo_usuario: {
       type: DataTypes.INTEGER,
       allowNull: false,
