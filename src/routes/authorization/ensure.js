@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const pw="Acceso a Escuela - Seguro";
+const pw=process.env.TOKEN_SECRET;
 
 function ensureSign(email, nickname, type, time){
   if(time){

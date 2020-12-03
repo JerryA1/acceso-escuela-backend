@@ -1,8 +1,10 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-//var cors = require('cors');
-
+//const cors = require('cors');
+if(process.env.NODE_ENV !== 'production'){
+  require('dotenv').config({path: path.resolve(process.cwd(), '.env.local')});
+}
 //TEST DB
 const dbSeq = require('./database');
 dbSeq.authenticate()
@@ -66,7 +68,7 @@ app.use('/images', require('./routes/images.routes'))
 // });
 
 /** Static Files */
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 /** Starting Server */
 app.listen(app.get('port'), () => {
