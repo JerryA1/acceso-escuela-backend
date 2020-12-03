@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../database');
 const Schema = require('../models/init-models');
+const { Op } = require('sequelize');
 
 const ALUMNO = Schema.default(db).alumno;
 
@@ -21,6 +22,37 @@ router.get('/:id', async (req, res) => {
         console.log(findAlumno instanceof ALUMNO); // true
         res.json(findAlumno);
     }
+});
+
+router.get('/ausentes/:id_f', async (req, res) => {
+    const fecha=req.params.id_f;
+    const tempSQL = (await db.query('SELECT id_alumno as id FROM lista_acceso WHERE id_fecha='+fecha))[0].map(al => al.id);
+    const lista = await ALUMNO.findAll({
+        attributes: ['id', 'nombre', 'apellido', 'foto', 'direccionDefault', 'curp', 'activo'],
+        where: {id: {[Op.notIn]: tempSQL}}
+    });
+    res.json(lista);
+});
+
+router.get('/presentes/:id_f', async (req, res) => {
+    const fecha=req.params.id_f;
+    const tempSQL = (await db.query('SELECT id_alumno as id FROM lista_acceso WHERE id_fecha='+fecha))[0].map(al => al.id);
+    const lista = await ALUMNO.findAll({
+        attributes: ['id', 'nombre', 'apellido', 'foto', 'direccionDefault', 'curp', 'activo'],
+        where: {id: {[Op.in]: tempSQL}}
+    });
+    res.json(lista);
+});
+
+router.get('/porsalir/:id_f', async (req, res) => {
+    const fecha=req.params.id_f;
+    const tempSQL = (await db.query('SELECT id_alumno as id FROM lista_acceso WHERE id_fecha='+fecha))[0].map(al => al.id);
+    const tempSQL2 = (await db.query('SELECT id_alumno as id FROM lista_salida WHERE id_fecha='+fecha))[0].map(al => al.id);
+    const lista = await ALUMNO.findAll({
+        attributes: ['id', 'nombre', 'apellido', 'foto', 'direccionDefault', 'curp', 'activo'],
+        where: {id: {[Op.notIn]: tempSQL2, [Op.in]: tempSQL}}
+    });
+    res.json(lista);
 });
 
 router.post('/', async (req, res) => {

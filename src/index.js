@@ -52,6 +52,7 @@ app.use('/api/tipos/usuario', require('./routes/tipos.usuario.routes'));
 app.use('/api/tipos/personal', require('./routes/tipos.personal.routes'));
 app.use('/api/usuarios', require('./routes/usuarios.routes'));
 app.use('/api/listas/acceso', require('./routes/listas.acceso.routes'));
+app.use('/api/listas/salida', require('./routes/listas.salida.routes'));
 app.use('/api/personal', require('./routes/personal.routes'));
 app.use('/api/fechas', require('./routes/fechas.routes'));
 app.use('/images', require('./routes/images.routes'))
