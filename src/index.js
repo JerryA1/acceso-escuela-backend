@@ -41,6 +41,7 @@ app.use(morgan('dev'));
 
 /** Routes */
 app.use('/api/alumnos', require('./routes/alumnos.routes.js'));
+app.use('/api/tutores', require('./routes/tutores.routes.js'));
 
 // const publicPath = path.join(__dirname, 'public');
 // app.get('*', function(req, res) {
